@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "worktrolly-dev"
+  },
+  "targets": {
+    "worktrolly-dev": {
+      "hosting": {
+        "worktrolly-ui": [
+          "worktrolly-dev"
+        ]
+      }
+    }
+  }
+}
