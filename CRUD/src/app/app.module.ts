@@ -13,13 +13,15 @@ import { MaterialModule } from "./material/material.module"
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeComponent } from './employees/employee/employee.component';
 import { EmployeeService } from "./shared/employee.service";
-import { EmployeeListComponent } from './employees/employee-list/employee-list.component'
+import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesComponent,
     EmployeeComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    MatConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
 })
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef) {
-    appRef.bootstrap(EmployeeComponent); // Or some other component
+    appRef.bootstrap(EmployeeComponent);
+    appRef.bootstrap(MatConfirmDialogComponent); // Or some other component
   }
 }

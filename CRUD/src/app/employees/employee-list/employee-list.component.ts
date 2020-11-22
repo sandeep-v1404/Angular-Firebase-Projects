@@ -8,6 +8,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { MatPaginator } from '@angular/material/paginator';
 import { EmployeeComponent } from '../employee/employee.component';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { DialogService } from 'src/app/shared/dialog.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,7 +17,7 @@ import { NotificationService } from 'src/app/shared/notification.service';
 })
 export class EmployeeListComponent implements OnInit {
 
-  constructor(public firestore: AngularFirestore, private notificationservice: NotificationService, public service: EmployeeService, private dialog: MatDialog) {
+  constructor(public firestore: AngularFirestore, private notificationservice: NotificationService, public dialogService: DialogService, public service: EmployeeService, private dialog: MatDialog) {
     this.service.getEmployees().subscribe(employees => {
       this.dataSource = employees;
       this.employeeListData = new MatTableDataSource(this.dataSource);
@@ -60,9 +61,16 @@ export class EmployeeListComponent implements OnInit {
     this.dialog.open(EmployeeComponent, dialogConfig);
   }
   onDelete(id: string) {
-    if (confirm("Are You Sure ?"))
-      this.service.deleteEmployee(id);
-    this.notificationservice.warn("! Deleted Successfully");
+    // if (confirm("Are You Sure ?"))
+    //   this.service.deleteEmployee(id);
+    // this.notificationservice.warn("! Deleted Successfully");
+    this.dialogService.openConfirmDialog('Are you sure to delete this record ?')
+      .afterClosed().subscribe(res => {
+        if (res) {
+          this.service.deleteEmployee(id);
+          this.notificationservice.warn('! Deleted successfully');
+        }
+      });
   }
 }
 
